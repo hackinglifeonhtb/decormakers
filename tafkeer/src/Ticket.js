@@ -49,13 +49,13 @@ export default function Ticket() {
     const [alerter, setAlerter] = useState(false)
     const {ticket_id} = useParams();
     useEffect(()=>{
-        axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/api/verify`, {token: localStorage.getItem('token') || ''}, {headers:{'x-access-token':localStorage.getItem('token'), 'email':localStorage.getItem('email')}})
+        axios.post(`${process.env.REACT_APP_SERVER_LINK}/api/verify`, {token: localStorage.getItem('token') || ''}, {headers:{'x-access-token':localStorage.getItem('token'), 'email':localStorage.getItem('email')}})
             .then((res)=>{
                 if(res.data.firstName !== undefined && res.data.secondName !== undefined)
                     setVerifiedData([res.data.firstName, res.data.secondName, res.data.email])
                     setName(res.data.firstName+' '+res.data.secondName)
                     setUserID(res.data.user_id)
-                    axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/social/ticket_details/${ticket_id}`)
+                    axios.post(`${process.env.REACT_APP_SERVER_LINK}/social/ticket_details/${ticket_id}`)
                         .then((ticket_data)=>{
                             console.log(ticket_data.data)
                             setTicket(ticket_data.data.ticket)
@@ -67,11 +67,11 @@ export default function Ticket() {
                 console.log(err)
             })
         /*
-            axios.post('http://${process.env.REACT_APP_SERVER_LINK}/getCoursesEnrolledIn', {email: verifiedData.email})
+            axios.post('${process.env.REACT_APP_SERVER_LINK}/getCoursesEnrolledIn', {email: verifiedData.email})
         */
     },[])
     const newCommentOrSolution = () => {
-        axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/social/ticket/add_comment/${ticket_id}`, {'email':localStorage.getItem('email'), comment: comment, title: ticket.ticket_title})
+        axios.post(`${process.env.REACT_APP_SERVER_LINK}/social/ticket/add_comment/${ticket_id}`, {'email':localStorage.getItem('email'), comment: comment, title: ticket.ticket_title})
             .then((res)=>{
                 setComments((comments)=>[...comments, {comment_id: res.data.comment_id, commenter_full_name: res.data.commenter_full_name, comment: comment}])
                 setCommentsLength((commentsLength)=>commentsLength+1)
@@ -80,7 +80,7 @@ export default function Ticket() {
             })
     }
     const correctAnswer = () => {
-        axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/social/ticket/correct_answer/${ticket_id}/${correctAnswerVal[0]}/${correctAnswerVal[1]}`, {'email':localStorage.getItem('email')})
+        axios.post(`${process.env.REACT_APP_SERVER_LINK}/social/ticket/correct_answer/${ticket_id}/${correctAnswerVal[0]}/${correctAnswerVal[1]}`, {'email':localStorage.getItem('email')})
             .then((res)=>{
                 window.location.reload()
             }).catch((err)=>{
@@ -89,7 +89,7 @@ export default function Ticket() {
             
     }
     // const new_comment = () => {
-    //     axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/social/new_comment/${course_id}/${lesson_name}/${userID}`, {email: localStorage.getItem('email'), name: name, comment: comment})
+    //     axios.post(`${process.env.REACT_APP_SERVER_LINK}/social/new_comment/${course_id}/${lesson_name}/${userID}`, {email: localStorage.getItem('email'), name: name, comment: comment})
     //         .then((res)=>{
     //             toast.success(res.data.message, {
     //                 position: "top-right",

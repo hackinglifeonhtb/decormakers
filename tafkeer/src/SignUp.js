@@ -15,7 +15,7 @@ export default function SignUp() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const LoginProcess = () => {
-        axios.post('http://${process.env.REACT_APP_SERVER_LINK}/users/login', {email,password})
+        axios.post(`${process.env.REACT_APP_SERVER_LINK}/users/login`, {email,password})
             .then((res)=>{
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('email', res.data.email)
@@ -29,7 +29,7 @@ export default function SignUp() {
                     progress: undefined,
                 })
                 setTimeout(()=>{
-                    window.location.replace('http://${process.env.REACT_APP_SITE_LINK}')
+                    window.location.replace(`${process.env.REACT_APP_SITE_LINK}`)
                 }, 1500);
             }).catch((err)=>{
                 toast.error('تأكد من صحة البيانات', {
@@ -44,7 +44,7 @@ export default function SignUp() {
             })
     }
     const SignUpProcess = () => {
-        axios.post('http://${process.env.REACT_APP_SERVER_LINK}/users/register', {firstName, secondName, email,password})
+        axios.post(`${process.env.REACT_APP_SERVER_LINK}/users/register`, {firstName, secondName, email,password})
             .then((res)=>{
                 LoginProcess()
             }).catch((err)=>{
@@ -101,7 +101,7 @@ export default function SignUp() {
                             <br/>
                             <input type="password" className='text-success' placeholder="كلمة السر" onChange={(e)=>setPassword(e.target.value)} />
                             <br/>
-                            <Link to='http://${process.env.REACT_APP_SITE_LINK}/login'><h5 style={{padding:'15px'}}>لدي حساب</h5></Link>
+                            <Link to={`${process.env.REACT_APP_SITE_LINK}/login`}><h5 style={{padding:'15px'}}>لدي حساب</h5></Link>
                             <button value="تسجيل الدخول" onClick={()=>SignUpProcess()}>تسجيل</button>
                         </div>
                     </div>

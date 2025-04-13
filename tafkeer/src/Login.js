@@ -15,7 +15,7 @@ export default function Login() {
     const [password, setPassword] = useState('')
     const [searchParams, setSearchParams] = useSearchParams();
     const LoginProcess = () => {
-        axios.post('http://${process.env.REACT_APP_SERVER_LINK}/users/login', {email,password})
+        axios.post(`${process.env.REACT_APP_SERVER_LINK}/users/login`, {email,password})
             .then((res)=>{
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('email', res.data.email)
@@ -109,7 +109,7 @@ export default function Login() {
                             <br/>
                             <input type="password" className='text-success' placeholder="كلمة السر" onChange={(e)=>setPassword(e.target.value)} />
                             <br/>
-                            <Link to='http://${process.env.REACT_APP_SITE_LINK}/sign_up'><h5 style={{padding:'15px'}}>ليس لدي حساب؟</h5></Link>
+                            <Link to='${process.env.REACT_APP_SITE_LINK}/sign_up'><h5 style={{padding:'15px'}}>ليس لدي حساب؟</h5></Link>
                             <button value="تسجيل الدخول" onClick={()=>LoginProcess()}>تسجيل الدخول</button>
                         </div>
                     </div>

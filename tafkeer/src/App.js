@@ -58,7 +58,7 @@ export default function App() {
   useEffect(()=>{
     setRandomW([`${Math.random()*75}%`,`${Math.random()*75}%`,`${Math.random()*75}%`])
     console.log('yesddd')
-    axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/api/verify`, {token: localStorage.getItem('token') || ''}, {headers:{'x-access-token':localStorage.getItem('token'), 'email':localStorage.getItem('email')}})
+    axios.post(`${process.env.REACT_APP_SERVER_LINK}/api/verify`, {token: localStorage.getItem('token') || ''}, {headers:{'x-access-token':localStorage.getItem('token'), 'email':localStorage.getItem('email')}})
       .then((res)=>{
         if(res.data.firstName !== undefined && res.data.secondName !== undefined)
           setName(res.data.firstName+' '+res.data.secondName)

@@ -58,16 +58,16 @@ export default function Push_Product() {
     const [sizes, setSizes] = useState([])
     const {ticket_id} = useParams();
     useEffect(()=>{
-        axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/api/verify`, {token: localStorage.getItem('token') || ''}, {headers:{'x-access-token':localStorage.getItem('token'), 'email':localStorage.getItem('email')}})
+        axios.post(`${process.env.REACT_APP_SERVER_LINK}/api/verify`, {token: localStorage.getItem('token') || ''}, {headers:{'x-access-token':localStorage.getItem('token'), 'email':localStorage.getItem('email')}})
             .then((res)=>{
                 if(res.data.firstName !== undefined && res.data.secondName !== undefined)
                     setVerifiedData([res.data.firstName, res.data.secondName, res.data.email])
                     setName(res.data.firstName+' '+res.data.secondName)
                     setUserID(res.data.user_id)
                     setReady(true)
-                    if(!res.data.manager) window.location.replace("http://${process.env.REACT_APP_SITE_LINK}")
+                    if(!res.data.manager) window.location.replace(`${process.env.REACT_APP_SITE_LINK}`)
                     setSearchParams({collection:"بالمتر"})
-                    // axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/social/ticket_details/${ticket_id}`)
+                    // axios.post(`${process.env.REACT_APP_SERVER_LINK}/social/ticket_details/${ticket_id}`)
                     //     .then((ticket_data)=>{
                     //         console.log(ticket_data.data.ticket)
                     //         setTicket(ticket_data.data.ticket)
@@ -78,13 +78,13 @@ export default function Push_Product() {
                 console.log(err)
             })
         /*
-            axios.post('http://${process.env.REACT_APP_SERVER_LINK}/getCoursesEnrolledIn', {email: verifiedData.email})
+            axios.post('${process.env.REACT_APP_SERVER_LINK}/getCoursesEnrolledIn', {email: verifiedData.email})
         */
     },[])
     const newProduct = () => {
-        axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/new_product`, {'email':localStorage.getItem('email'), product_name, product_describe, price, tags: searchParams.get('collection') !== null && searchParams.get('collection') != "" ? searchParams.get('collection').split(',') : [], sizes, product_pic})
+        axios.post(`${process.env.REACT_APP_SERVER_LINK}/new_product`, {'email':localStorage.getItem('email'), product_name, product_describe, price, tags: searchParams.get('collection') !== null && searchParams.get('collection') != "" ? searchParams.get('collection').split(',') : [], sizes, product_pic})
             .then((res)=>{
-                window.location.replace(`http://${process.env.REACT_APP_SITE_LINK}/products/${res.data.product_id}`)
+                window.location.replace(`${process.env.REACT_APP_SITE_LINK}/products/${res.data.product_id}`)
             }).catch((err)=>{
                 console.log(err)
             })
@@ -95,7 +95,7 @@ export default function Push_Product() {
         return (splitted.indexOf(item) > 0 ? splitted.slice(0,splitted.indexOf(item)).join(',') : '')+(splitted.length-1 !== splitted.indexOf(item) ? (splitted.indexOf(item)>0 ? ',' : '')+splitted.slice(splitted.indexOf(item)+1).join(',') : '')
     }
     // const new_comment = () => {
-    //     axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/social/new_comment/${course_id}/${lesson_name}/${userID}`, {email: localStorage.getItem('email'), name: name, comment: comment})
+    //     axios.post(`${process.env.REACT_APP_SERVER_LINK}/social/new_comment/${course_id}/${lesson_name}/${userID}`, {email: localStorage.getItem('email'), name: name, comment: comment})
     //         .then((res)=>{
     //             toast.success(res.data.message, {
     //                 position: "top-right",

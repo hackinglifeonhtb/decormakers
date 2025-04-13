@@ -44,13 +44,13 @@ export default function Tickets() {
     const [ready, setReady] = useState(false)
     const {course_id, lesson_name} = useParams();
     useEffect(()=>{
-        axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/api/verify`, {token: localStorage.getItem('token') || ''}, {headers:{'x-access-token':localStorage.getItem('token'), 'email':localStorage.getItem('email')}})
+        axios.post(`${process.env.REACT_APP_SERVER_LINK}/api/verify`, {token: localStorage.getItem('token') || ''}, {headers:{'x-access-token':localStorage.getItem('token'), 'email':localStorage.getItem('email')}})
             .then((res)=>{
                 if(res.data.firstName !== undefined && res.data.secondName !== undefined)
                     setVerifiedData([res.data.firstName, res.data.secondName, res.data.email])
                     setName(res.data.firstName+' '+res.data.secondName)
                     setUserID(res.data.user_id)
-                    axios.post('http://${process.env.REACT_APP_SERVER_LINK}/social/tickets')
+                    axios.post(`${process.env.REACT_APP_SERVER_LINK}/social/tickets`)
                         .then((tickets_data)=>{
                             console.log(tickets_data.data.tickets)
                             setTickets(tickets_data.data.tickets)
@@ -60,11 +60,11 @@ export default function Tickets() {
                 console.log(err)
             })
         /*
-            axios.post('http://${process.env.REACT_APP_SERVER_LINK}/getCoursesEnrolledIn', {email: verifiedData.email})
+            axios.post('${process.env.REACT_APP_SERVER_LINK}/getCoursesEnrolledIn', {email: verifiedData.email})
         */
     },[])
     // const new_comment = () => {
-    //     axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/social/new_comment/${course_id}/${lesson_name}/${userID}`, {email: localStorage.getItem('email'), name: name, comment: comment})
+    //     axios.post(`${process.env.REACT_APP_SERVER_LINK}/social/new_comment/${course_id}/${lesson_name}/${userID}`, {email: localStorage.getItem('email'), name: name, comment: comment})
     //         .then((res)=>{
     //             toast.success(res.data.message, {
     //                 position: "top-right",

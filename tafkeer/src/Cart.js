@@ -48,13 +48,13 @@ export default function Cart() {
     const [display, setDisplay] = useState([{'اكتشف':false, 'اثاث وغرف' : false, 'اكسسوارات وديكور': false, 'تشطيب وبناء': false, 'اكتشف المزيد': false, 'التصاميم والاستشارات': false}])
     const [collections, setCollections] = useState([{'اكتشف':['مجموعات رمضان','قيمة رائعة',"عيش جوك","وصل حديثا","اوتليت"],"اثاث وغرف":[ "اثاث غرفة المعيشة", "اثاث غرفة النوم", "اثاث غرف الظعام", "اثاث المساحات الخارجية", "اثاث غرف الدراسة والمكتب وغرف الأطفال والمواليد والشباب", "حمامات"], "اكسسوارات وديكور":["الطعام والمطبخ", "ديكور البيت والمعيشة", "شموع وفوانيس وتعطيرات البيت", "فنون جدارية ومرايا", "سجاد", "مفارش ومستلزمات الحمام", "حلول التخزين", "حديقة ونباتات", "اكسسوارات الأطفال والمواليد", "اساسيات ذات قيمة رائعة"], "تشطيب وبناء": ['اضاءات', 'البلاط', 'ورق جدار', 'الستائر', 'باركيه', 'المطابخ', 'نوافذ', 'ابواب'], "اكتشف المزيد": ['حصريات الموقع', 'المجموعات', 'بناءون', 'الكتالوجات'], 'التصاميم والاستشارات': ['تصميم داخلي 35م', 'تصميم خارجي 35م', 'استشارات بالمكتب 1000', 'استشارات بالموقع 2000']}])
     useEffect(()=>{
-        axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/api/verify`, {token: localStorage.getItem('token') || ''}, {headers:{'x-access-token':localStorage.getItem('token'), 'email':localStorage.getItem('email')}})
+        axios.post(`${process.env.REACT_APP_SERVER_LINK}/api/verify`, {token: localStorage.getItem('token') || ''}, {headers:{'x-access-token':localStorage.getItem('token'), 'email':localStorage.getItem('email')}})
             .then((res)=>{
                 if(res.data.firstName !== undefined && res.data.secondName !== undefined)
                     setVerifiedData([res.data.firstName, res.data.secondName, res.data.email])
                     setName(res.data.firstName+' '+res.data.secondName)
                     setReady(true)
-                    axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/get_cart_products/${cart_id}`)
+                    axios.post(`${process.env.REACT_APP_SERVER_LINK}/get_cart_products/${cart_id}`)
                         .then(async (data)=>{
                             console.log(data.data)
                             setProducts(data.data.products)
@@ -65,15 +65,15 @@ export default function Cart() {
                             console.log(err);
                         })
             }).catch((err)=>{
-                //window.location.href =`"http://${process.env.REACT_APP_SITE_LINK}/login?refer_to=${window.location.href}`
+                //window.location.href =`"${process.env.REACT_APP_SITE_LINK}/login?refer_to=${window.location.href}`
                 console.log(err)
             })
         /*
-            axios.post('http://${process.env.REACT_APP_SERVER_LINK}/getCoursesEnrolledIn', {email: verifiedData.email})
+            axios.post('${process.env.REACT_APP_SERVER_LINK}/getCoursesEnrolledIn', {email: verifiedData.email})
         */
     },[])
     const plus_quantity_of_product = (product_id) => {
-        axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/cart/${cart_id}/plus_quantity_of_product/${product_id}`)
+        axios.post(`${process.env.REACT_APP_SERVER_LINK}/cart/${cart_id}/plus_quantity_of_product/${product_id}`)
             .then((res)=>{
                 window.location.reload();
             }).catch((err)=>{
@@ -90,7 +90,7 @@ export default function Cart() {
             })
     }
     const minus_quantity_of_product = (product_id) => {
-        axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/cart/${cart_id}/minus_quantity_of_product/${product_id}`)
+        axios.post(`${process.env.REACT_APP_SERVER_LINK}/cart/${cart_id}/minus_quantity_of_product/${product_id}`)
             .then((res)=>{
                 window.location.reload();
             }).catch((err)=>{
@@ -107,7 +107,7 @@ export default function Cart() {
             })
     }
     const delete_product = (product_id) => {
-        axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/cart/${cart_id}/delete_product/${product_id}`)
+        axios.post(`${process.env.REACT_APP_SERVER_LINK}/cart/${cart_id}/delete_product/${product_id}`)
             .then((res)=>{
                 window.location.reload();
             }).catch((err)=>{

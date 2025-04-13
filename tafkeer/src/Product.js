@@ -46,14 +46,14 @@ export default function Product() {
     const [collections, setCollections] = useState([{'اكتشف':['مجموعات رمضان','قيمة رائعة',"عيش جوك","وصل حديثا","اوتليت"],"اثاث وغرف":[ "اثاث غرفة المعيشة", "اثاث غرفة النوم", "اثاث غرف الظعام", "اثاث المساحات الخارجية", "اثاث غرف الدراسة والمكتب وغرف الأطفال والمواليد والشباب", "حمامات"], "اكسسوارات وديكور":["الطعام والمطبخ", "ديكور البيت والمعيشة", "شموع وفوانيس وتعطيرات البيت", "فنون جدارية ومرايا", "سجاد", "مفارش ومستلزمات الحمام", "حلول التخزين", "حديقة ونباتات", "اكسسوارات الأطفال والمواليد", "اساسيات ذات قيمة رائعة"], "تشطيب وبناء": ['اضاءات', 'البلاط', 'ورق جدار', 'الستائر', 'باركيه', 'المطابخ', 'نوافذ', 'ابواب'], "اكتشف المزيد": ['حصريات الموقع', 'المجموعات', 'بناءون', 'الكتالوجات'], 'التصاميم والاستشارات': ['تصميم داخلي 35م', 'تصميم خارجي 35م', 'استشارات بالمكتب 1000', 'استشارات بالموقع 2000']}])
     const {course_id} = useParams();
     useEffect(()=>{
-        axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/api/verify`, {token: localStorage.getItem('token') || ''}, {headers:{'x-access-token':localStorage.getItem('token'), 'email':localStorage.getItem('email')}})
+        axios.post(`${process.env.REACT_APP_SERVER_LINK}/api/verify`, {token: localStorage.getItem('token') || ''}, {headers:{'x-access-token':localStorage.getItem('token'), 'email':localStorage.getItem('email')}})
             .then((res)=>{
                 if(res.data.firstName !== undefined && res.data.secondName !== undefined)
                     setVerifiedData([res.data.firstName, res.data.secondName, res.data.email])
                     setName(res.data.firstName+' '+res.data.secondName)
                     setEmail(res.data.email)
                     setReady(true)
-                    axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/products/${product_id}`)
+                    axios.post(`${process.env.REACT_APP_SERVER_LINK}/products/${product_id}`)
                         .then(async (data)=>{
                             console.log(data)
                             setProduct([data.data.product])
@@ -64,17 +64,17 @@ export default function Product() {
                             console.log(err);
                         })
             }).catch((err)=>{
-                //window.location.href =`"http://${process.env.REACT_APP_SITE_LINK}/login?refer_to=${window.location.href}`
+                //window.location.href =`"${process.env.REACT_APP_SITE_LINK}/login?refer_to=${window.location.href}`
                 console.log(err)
             })
         /*
-            axios.post('http://${process.env.REACT_APP_SERVER_LINK}/getCoursesEnrolledIn', {email: verifiedData.email})
+            axios.post('${process.env.REACT_APP_SERVER_LINK}/getCoursesEnrolledIn', {email: verifiedData.email})
         */
     },[])
     const add_to_cart = () => {
-        axios.post("http://${process.env.REACT_APP_SERVER_LINK}/get_cart_info", {email: email})
+        axios.post(`${process.env.REACT_APP_SERVER_LINK}/get_cart_info`, {email: email})
             .then((res)=>{
-                axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/add_to_cart/${res.data.cart.user_id}/${product[0]._id}`, {choosedSize: product[0].tags.includes("بالمتر") ? searchParams.get('size') : "حجم ثابت"})
+                axios.post(`${process.env.REACT_APP_SERVER_LINK}/add_to_cart/${res.data.cart.user_id}/${product[0]._id}`, {choosedSize: product[0].tags.includes("بالمتر") ? searchParams.get('size') : "حجم ثابت"})
                      .then((response)=>{
                         console.log("Added to Cart!")
                         toast.success('تمت اضافة المنتج للسلة بنجاح!', {

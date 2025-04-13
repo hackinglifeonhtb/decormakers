@@ -50,14 +50,14 @@ export default function Push_Ticket() {
     const [ready, setReady] = useState(false)
     const {ticket_id} = useParams();
     useEffect(()=>{
-        axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/api/verify`, {token: localStorage.getItem('token') || ''}, {headers:{'x-access-token':localStorage.getItem('token'), 'email':localStorage.getItem('email')}})
+        axios.post(`${process.env.REACT_APP_SERVER_LINK}/api/verify`, {token: localStorage.getItem('token') || ''}, {headers:{'x-access-token':localStorage.getItem('token'), 'email':localStorage.getItem('email')}})
             .then((res)=>{
                 if(res.data.firstName !== undefined && res.data.secondName !== undefined)
                     setVerifiedData([res.data.firstName, res.data.secondName, res.data.email])
                     setName(res.data.firstName+' '+res.data.secondName)
                     setUserID(res.data.user_id)
                     setReady(true)
-                    // axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/social/ticket_details/${ticket_id}`)
+                    // axios.post(`${process.env.REACT_APP_SERVER_LINK}/social/ticket_details/${ticket_id}`)
                     //     .then((ticket_data)=>{
                     //         console.log(ticket_data.data.ticket)
                     //         setTicket(ticket_data.data.ticket)
@@ -68,19 +68,19 @@ export default function Push_Ticket() {
                 console.log(err)
             })
         /*
-            axios.post('http://${process.env.REACT_APP_SERVER_LINK}/getCoursesEnrolledIn', {email: verifiedData.email})
+            axios.post('${process.env.REACT_APP_SERVER_LINK}/getCoursesEnrolledIn', {email: verifiedData.email})
         */
     },[])
     const newTicket = () => {
-        axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/social/new_ticket`, {'email':localStorage.getItem('email'), title: title, question: question, tags: []})
+        axios.post(`${process.env.REACT_APP_SERVER_LINK}/social/new_ticket`, {'email':localStorage.getItem('email'), title: title, question: question, tags: []})
             .then((res)=>{
-                window.location.replace(`http://${process.env.REACT_APP_SITE_LINK}/tickets/${res.data.ticket_id}`)
+                window.location.replace(`${process.env.REACT_APP_SITE_LINK}/tickets/${res.data.ticket_id}`)
             }).catch((err)=>{
                 console.log(err)
             })
     }
     // const new_comment = () => {
-    //     axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/social/new_comment/${course_id}/${lesson_name}/${userID}`, {email: localStorage.getItem('email'), name: name, comment: comment})
+    //     axios.post(`${process.env.REACT_APP_SERVER_LINK}/social/new_comment/${course_id}/${lesson_name}/${userID}`, {email: localStorage.getItem('email'), name: name, comment: comment})
     //         .then((res)=>{
     //             toast.success(res.data.message, {
     //                 position: "top-right",

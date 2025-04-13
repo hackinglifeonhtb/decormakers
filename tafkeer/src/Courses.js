@@ -27,12 +27,12 @@ export default function Courses() {
     const [tags, setTags] = useState([])
     const [ready, setReady] = useState(false)
     useEffect(()=>{
-        axios.post(`http://${process.env.REACT_APP_SERVER_LINK}/api/verify`, {token: localStorage.getItem('token') || ''}, {headers:{'x-access-token':localStorage.getItem('token'), 'email':localStorage.getItem('email')}})
+        axios.post(`${process.env.REACT_APP_SERVER_LINK}/api/verify`, {token: localStorage.getItem('token') || ''}, {headers:{'x-access-token':localStorage.getItem('token'), 'email':localStorage.getItem('email')}})
             .then((res)=>{
                 if(res.data.firstName !== undefined && res.data.secondName !== undefined)
                     setVerifiedData([res.data.firstName, res.data.secondName, res.data.email])
                     setName(res.data.firstName+' '+res.data.secondName)
-                    axios.post('http://${process.env.REACT_APP_SERVER_LINK}/getCourses', {email:localStorage.getItem('email')})
+                    axios.post(`${process.env.REACT_APP_SERVER_LINK}/getCourses`, {email:localStorage.getItem('email')})
                         .then((courses)=>{
                             setCourses(courses.data);
                             console.log(courses.data)
@@ -40,18 +40,18 @@ export default function Courses() {
                         }).catch((err)=>{
                             console.log(err)
                         })
-                    // axios.post('http://${process.env.REACT_APP_SERVER_LINK}/getCoursesEnrolledIn', {email: res.data.email})
+                    // axios.post('${process.env.REACT_APP_SERVER_LINK}/getCoursesEnrolledIn', {email: res.data.email})
                     //     .then((coursesEnrolledIn)=>{
                     //         setCoursesEnrolledIn(coursesEnrolledIn.coursesEnrolledIn)
                     //     }).catch((err)=>{
                     //         console.log(err);
                     //     })
             }).catch((err)=>{
-                //window.location.href =`"http://${process.env.REACT_APP_SITE_LINK}/login?refer_to=${window.location.href}`
+                //window.location.href =`"${process.env.REACT_APP_SITE_LINK}/login?refer_to=${window.location.href}`
                 console.log(err)
             })
         /*
-            axios.post('http://${process.env.REACT_APP_SERVER_LINK}/getCoursesEnrolledIn', {email: verifiedData.email})
+            axios.post('${process.env.REACT_APP_SERVER_LINK}/getCoursesEnrolledIn', {email: verifiedData.email})
         */
     },[])
     return (
