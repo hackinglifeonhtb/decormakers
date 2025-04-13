@@ -7,6 +7,7 @@ import './SignUp.css'
 import TafkeerDesign from './Images/tafkeerDesign.png'
 import discord from './Images/discord.png'
 import tafkeer from './Images/tafkeer.png'
+import DecorMakers from './Images/decor_makers_without_background.png'
 import { ToastContainer, toast } from 'react-toastify';
 
 export default function SignUp() {
@@ -113,15 +114,15 @@ export default function SignUp() {
                     alignItems:'center'
                 }}>
                     <div>
-                        <img src={TafkeerDesign} style={{height:'300px', width:'500px'}} />
+                        <img src={DecorMakers} style={{height:'300px', width:'300px'}} />
                     </div>
-                    <h1>منصة تفكير التعليمية</h1>
-                    <h3 style={{letterSpacing:'2px', lineHeight:'40px'}}>منصة تعليمية للمواد الجامعية في جميع التخصصات وكل ذلك مجانًا</h3>
+                    <h1>صناع الديكور</h1>
+                    <h3 style={{letterSpacing:'2px', lineHeight:'40px'}}>مؤسسة مختصة بصناعة الديكور والاثاث وايضا توفيرها بشكل فردي</h3>
                     <br/>
                     <br/>
-                    <h5 style={{width:'75%'}}>يمكنك طرح الأسئلة والاستفسارات للمدربين عن طريق سيرفرنا في الديسكورد</h5>
+                    <h5 style={{width:'75%'}}>في حالة الرغبة بطرح الاستفسارات يمكنكم التوجه الى صفحة التكت وفتح تكت جديد وسيتم الرد على استفساراتكم باسرع وقت علما انها ستكون متاحة لرؤيتها من قبل الجميع</h5>
                     <br/>
-                    <Link to='https://discord.gg/HackTheBox'>
+                    <Link to={`${process.env.REACT_APP_SITE_LINK}/tickets`}>
                         <div align="center" style={{
                             width:'100px',
                             height:'100px',
@@ -131,7 +132,7 @@ export default function SignUp() {
                             justifyContent:'center',
                             alignItems:'center'
                         }}>
-                            <img src={discord} style={{height:'75px', width:'75px'}} />
+                            <img src={DecorMakers} style={{height:'75px', width:'75px'}} />
                         </div>
                     </Link>
                 </div>
