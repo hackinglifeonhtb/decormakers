@@ -1,0 +1,50 @@
+h1, p, h2, h3, .firstOne * {
+    color:white;
+}
+
+.loginForm * {
+    margin:0px 0px 10px;
+}
+
+input[type='email'], input[type='password'], input[type='text'] {
+    background-color:black;
+    border:1px solid black;
+    border-radius:10px;
+    padding:10px;
+    width:75%;
+}
+
+input[type='submit'],.loginForm button {
+    background-color: #9fef00 !important;
+    padding:10px;
+    color:black;
+    border:1px solid #9fef00 !important;
+    border-radius:5px;
+    width: 75%;
+}
+input {
+    outline: none;
+}
+
+header button, #menu button, .Visit, .search-button, .new-ticket-button, .new-comment-button {
+    background-color: #9fef00 !important;
+    padding:10px;
+    color:black;
+    border:1px solid #9fef00 !important;
+    border-radius:5px;
+}
+
+.loginDisplay {
+    display:block;
+}
+.loginDiv {
+    width:50%;
+}
+@media only screen and (max-width: 800px) {
+    .loginDisplay {
+        display: none;
+    }
+    .loginDiv {
+        width:100%;
+    }
+}
