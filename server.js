@@ -51,7 +51,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to Tafkeer platform!" });
+  res.json({ message: "Welcome to Tafkeer platform!", port:process.env.PORT, link: process.env.STATIC_SITE_LINK });
 });
 app.post("/users/register", (req,res)=>{
   console.log(req.body)
