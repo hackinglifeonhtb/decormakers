@@ -14,7 +14,7 @@ const db = require('./app/config/db.config')
 const mongoose = require('mongoose')
 require('dotenv').config()
 var corsOptions = {
-  origin: process.env.REACT_APP_SITE_LINK
+  origin: process.env.STATIC_SITE_LINK
 };
 var bcrypt = require('bcrypt');
 var bodyParser = require('body-parser');
